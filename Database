@@ -113,6 +113,41 @@ references COMPANIE_FARMACEUTICA (id_companie);
 UPDATE FARMACIE
 SET cost_chirie = NULL;
 
+INSERT INTO ADRESA(cod_postal,nume_strada)
+VALUES(077145,'Soseaua Corinda');
+INSERT INTO ADRESA(cod_postal,nume_strada)
+VALUES(077160,'Soseaua Berceni');
+INSERT INTO ADRESA(cod_postal,nume_strada)
+VALUES(038299,'Strada Marasesti');
+INSERT INTO ADRESA(cod_postal,nume_strada)
+VALUES(722561,'Strada Floarea Soarelui');
+INSERT INTO ADRESA(cod_postal,nume_strada)
+VALUES(673899,'Strada Ialomitei');
+INSERT INTO ADRESA(cod_postal,nume_strada)
+VALUES(627388,'Soseaua Giurgiului');
+INSERT INTO ADRESA(cod_postal,nume_strada)
+VALUES(567393,'Soseaua Orhideelor');
+INSERT INTO ADRESA(cod_postal,nume_strada)
+VALUES(827111,'Strada Mureseni');
+
+INSERT INTO CLIENTI (cnp,nume,data_nastere,cod_postal,varsta)
+VALUES(6030803045531,'Sabina Hrisca',TO_DATE('03-08-2003','DD-MM-YYYY'),077160,20);
+INSERT INTO CLIENTI (cnp,nume,data_nastere,cod_postal,varsta)
+VALUES(60206026738,'Alina Matache',TO_DATE('02-06-2002','DD-MM-YYYY'),077145,21);
+INSERT INTO CLIENTI (cnp,nume,data_nastere,cod_postal,varsta)
+VALUES(5030989632731,'Marius Corea',TO_DATE('03-09-1998','DD-MM-YYYY'),038299,25);
+INSERT INTO CLIENTI (cnp,nume,data_nastere,cod_postal,varsta)
+VALUES(5180589402731,'David Lina',TO_DATE('18-05-1989','DD-MM-YYYY'),722561,34);
+
+INSERT INTO FARMACIE (id_farmacie,nume,cost_chirie,cod_postal)
+VALUES(0432,'Catena',300,673899);
+INSERT INTO FARMACIE (id_farmacie,nume,cost_chirie,cod_postal)
+VALUES(0433,'Ropharm',460,627388);
+INSERT INTO FARMACIE (id_farmacie,nume,cost_chirie,cod_postal)
+VALUES(0434,'Farmacia Tei',500,567393);
+INSERT INTO FARMACIE (id_farmacie,nume,cost_chirie,cod_postal)
+VALUES(0435,'DoctorMax',340,827111);
+
 SELECT * FROM farmacie;
 
 ALTER TABLE FARMACIE
