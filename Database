@@ -1,0 +1,119 @@
+DROP TABLE CLIENTI CASCADE CONSTRAINTS;
+DROP TABLE FARMACIE CASCADE CONSTRAINTS;
+DROP TABLE COMANDA CASCADE CONSTRAINTS;
+DROP TABLE ANGAJAT CASCADE CONSTRAINTS;
+DROP TABLE COMPANIE_FARMACEUTICA CASCADE CONSTRAINTS;
+DROP TABLE ADRESA CASCADE CONSTRAINTS;
+DROP TABLE MEDICAMENT CASCADE CONSTRAINTS;
+DROP TABLE DETALIU_COMANDA CASCADE CONSTRAINTS;
+DROP TABLE STOC_MEDICAMENT CASCADE CONSTRAINTS;
+
+create table CLIENTI
+(
+  cnp            NUMBER,
+  nume           VARCHAR2(25),
+  data_nastere   DATE,
+  cod_postal     NUMBER,
+  varsta         NUMBER,
+  constraint CNP_PK primary key (cnp)
+);
+
+create table FARMACIE
+(
+  id_farmacie    NUMBER,
+  nume           VARCHAR2(25),
+  cost_chirie    NUMBER,
+  cod_postal     NUMBER,
+  constraint ID_FARMACIE_PK primary key (id_farmacie)
+);
+
+create table ANGAJAT
+(
+  id_angajat     NUMBER,
+  id_farmacie    NUMBER,
+  nume           VARCHAR2(25),
+  data_angajare  DATE,
+  salariu        NUMBER,
+  tip_angajat    VARCHAR2(25),
+  constraint ID_ANGAJAT_PK primary key (id_angajat)
+);
+
+create table COMPANIE_FARMACEUTICA
+(
+  id_companie    NUMBER,
+  nume           VARCHAR2(25),
+  telefon        NUMBER,
+  constraint ID_COMPANIE_PK primary key (id_companie)
+);
+
+create table COMANDA
+(
+  id_comanda         NUMBER,
+  cnp                NUMBER,
+  data_efectuare     DATE,
+  constraint ID_COMANDA_PK primary key (id_comanda)
+);
+
+create table MEDICAMENT
+(
+  id_produs      NUMBER,
+  id_companie    NUMBER,
+  nume           VARCHAR2(25),
+  pret           NUMBER,
+  reteta         VARCHAR2(25),
+  constraint ID_PRODUS_PK primary key (id_produs)
+);
+
+create table ADRESA
+(
+  cod_postal     NUMBER,
+  nume_strada    VARCHAR2(25),
+  constraint COD_POSTAL_PK primary key (cod_postal)
+);
+
+create table DETALIU_COMANDA
+(
+  id_detalii     NUMBER,
+  id_comanda     NUMBER,
+  id_produs      NUMBER,
+  cantitate      NUMBER,
+  constraint ID_DET_PK primary key (id_detalii),
+  foreign key (id_produs) references MEDICAMENT (id_produs),
+  foreign key (id_comanda) references COMANDA (id_comanda)
+);
+create table STOC_MEDICAMENT
+(
+    stoc NUMBER,
+    id_farmacie NUMBER,
+    id_produs NUMBER,
+    cantitate NUMBER,
+    constraint STOC_MED_PK primary key (stoc),
+    foreign key (id_farmacie) references FARMACIE (id_farmacie),
+    foreign key (id_produs) references MEDICAMENT (id_produs)
+);
+alter table CLIENTI
+add constraint COD_FK foreign key (cod_postal)
+references ADRESA (cod_postal);
+
+alter table FARMACIE
+add constraint COD_P_FK foreign key (cod_postal)
+references ADRESA (cod_postal);
+
+alter table ANGAJAT
+add constraint ID_FARMACIE_FK foreign key (id_farmacie)
+references FARMACIE (id_farmacie);
+
+alter table COMANDA
+add constraint CNP_FK foreign key (cnp)
+references CLIENTI (cnp);
+
+alter table MEDICAMENT
+add constraint ID_COMPANIE_FK foreign key (id_companie)
+references COMPANIE_FARMACEUTICA (id_companie);
+UPDATE FARMACIE
+SET cost_chirie = NULL;
+
+SELECT * FROM farmacie;
+
+ALTER TABLE FARMACIE
+MODIFY cost_chirie NUMBER(10,2);
