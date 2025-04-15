@@ -8,110 +8,114 @@ DROP TABLE MEDICAMENT CASCADE CONSTRAINTS;
 DROP TABLE DETALIU_COMANDA CASCADE CONSTRAINTS;
 DROP TABLE STOC_MEDICAMENT CASCADE CONSTRAINTS;
 
+
 create table CLIENTI
 (
-  cnp            NUMBER,
-  nume           VARCHAR2(25),
-  data_nastere   DATE,
-  cod_postal     NUMBER,
-  varsta         NUMBER,
+  cnp     NUMBER,
+  nume VARCHAR2(25),
+  data_nastere DATE,
+  cod_postal NUMBER,
+  varsta NUMBER,
   constraint CNP_PK primary key (cnp)
 );
 
 create table FARMACIE
 (
-  id_farmacie    NUMBER,
-  nume           VARCHAR2(25),
-  cost_chirie    NUMBER,
-  cod_postal     NUMBER,
+  id_farmacie  NUMBER,
+  nume VARCHAR2(25),
+  cost_chirie NUMBER,
+  cod_postal NUMBER,
   constraint ID_FARMACIE_PK primary key (id_farmacie)
 );
 
 create table ANGAJAT
 (
-  id_angajat     NUMBER,
-  id_farmacie    NUMBER,
-  nume           VARCHAR2(25),
-  data_angajare  DATE,
-  salariu        NUMBER,
-  tip_angajat    VARCHAR2(25),
+  id_angajat  NUMBER,
+  id_farmacie NUMBER,
+  nume VARCHAR2(25),
+  data_angajare DATE,
+  salariu NUMBER,
+  tip_angajat VARCHAR2(25),
   constraint ID_ANGAJAT_PK primary key (id_angajat)
 );
 
 create table COMPANIE_FARMACEUTICA
 (
-  id_companie    NUMBER,
-  nume           VARCHAR2(25),
-  telefon        NUMBER,
+  id_companie NUMBER,
+  nume VARCHAR2(25),
+  telefon NUMBER,
   constraint ID_COMPANIE_PK primary key (id_companie)
 );
 
 create table COMANDA
 (
-  id_comanda         NUMBER,
-  cnp                NUMBER,
-  data_efectuare     DATE,
+  id_comanda NUMBER,
+  cnp NUMBER,
+  data_efectuare DATE,
   constraint ID_COMANDA_PK primary key (id_comanda)
 );
 
 create table MEDICAMENT
 (
-  id_produs      NUMBER,
-  id_companie    NUMBER,
-  nume           VARCHAR2(25),
-  pret           NUMBER,
-  reteta         VARCHAR2(25),
+  id_produs NUMBER,
+  id_companie NUMBER,
+  nume VARCHAR2(25),
+  pret NUMBER,
+  reteta VARCHAR2(25),
   constraint ID_PRODUS_PK primary key (id_produs)
 );
 
 create table ADRESA
 (
-  cod_postal     NUMBER,
-  nume_strada    VARCHAR2(25),
+  cod_postal NUMBER,
+  nume_strada VARCHAR2(25),
   constraint COD_POSTAL_PK primary key (cod_postal)
 );
 
 create table DETALIU_COMANDA
 (
-  id_detalii     NUMBER,
-  id_comanda     NUMBER,
-  id_produs      NUMBER,
-  cantitate      NUMBER,
+  id_detalii NUMBER,
+  id_comanda NUMBER,
+  id_produs NUMBER,
+  cantitate NUMBER,
   constraint ID_DET_PK primary key (id_detalii),
   foreign key (id_produs) references MEDICAMENT (id_produs),
   foreign key (id_comanda) references COMANDA (id_comanda)
 );
+
 create table STOC_MEDICAMENT
 (
-    stoc NUMBER,
-    id_farmacie NUMBER,
-    id_produs NUMBER,
-    cantitate NUMBER,
-    constraint STOC_MED_PK primary key (stoc),
-    foreign key (id_farmacie) references FARMACIE (id_farmacie),
-    foreign key (id_produs) references MEDICAMENT (id_produs)
+  stoc NUMBER,
+  id_farmacie NUMBER,
+  id_produs NUMBER,
+  cantitate NUMBER,
+  constraint STOC_MED_PK primary key (stoc),
+  foreign key (id_farmacie) references FARMACIE (id_farmacie),
+  foreign key (id_produs) references MEDICAMENT (id_produs)
 );
-alter table CLIENTI
-add constraint COD_FK foreign key (cod_postal)
-references ADRESA (cod_postal);
 
-alter table FARMACIE
-add constraint COD_P_FK foreign key (cod_postal)
-references ADRESA (cod_postal);
+
+
+
+alter table CLIENTI
+  add constraint COD_FK foreign key (cod_postal)
+  references ADRESA (cod_postal);
+
+ alter table FARMACIE
+  add constraint COD_P_FK foreign key (cod_postal)
+  references ADRESA (cod_postal);
 
 alter table ANGAJAT
-add constraint ID_FARMACIE_FK foreign key (id_farmacie)
-references FARMACIE (id_farmacie);
+  add constraint ID_FARMACIE_FK foreign key (id_farmacie)
+  references FARMACIE (id_farmacie);
 
-alter table COMANDA
-add constraint CNP_FK foreign key (cnp)
-references CLIENTI (cnp);
+  alter table COMANDA
+  add constraint CNP_FK foreign key (cnp)
+  references CLIENTI (cnp);
 
-alter table MEDICAMENT
-add constraint ID_COMPANIE_FK foreign key (id_companie)
-references COMPANIE_FARMACEUTICA (id_companie);
-UPDATE FARMACIE
-SET cost_chirie = NULL;
+  alter table MEDICAMENT
+  add constraint ID_COMPANIE_FK foreign key (id_companie)
+  references COMPANIE_FARMACEUTICA (id_companie);
 
 INSERT INTO ADRESA(cod_postal,nume_strada)
 VALUES(077145,'Soseaua Corinda');
@@ -130,25 +134,81 @@ VALUES(567393,'Soseaua Orhideelor');
 INSERT INTO ADRESA(cod_postal,nume_strada)
 VALUES(827111,'Strada Mureseni');
 
-INSERT INTO CLIENTI (cnp,nume,data_nastere,cod_postal,varsta)
-VALUES(6030803045531,'Sabina Hrisca',TO_DATE('03-08-2003','DD-MM-YYYY'),077160,20);
-INSERT INTO CLIENTI (cnp,nume,data_nastere,cod_postal,varsta)
-VALUES(60206026738,'Alina Matache',TO_DATE('02-06-2002','DD-MM-YYYY'),077145,21);
-INSERT INTO CLIENTI (cnp,nume,data_nastere,cod_postal,varsta)
-VALUES(5030989632731,'Marius Corea',TO_DATE('03-09-1998','DD-MM-YYYY'),038299,25);
-INSERT INTO CLIENTI (cnp,nume,data_nastere,cod_postal,varsta)
-VALUES(5180589402731,'David Lina',TO_DATE('18-05-1989','DD-MM-YYYY'),722561,34);
+ INSERT INTO CLIENTI (cnp,nume,data_nastere,cod_postal,varsta)
+ VALUES(6030803045351,'Sabina Hrisca',TO_DATE('03-08-2003','DD-MM-YYYY'),077160,20);
+ INSERT INTO CLIENTI (cnp,nume,data_nastere,cod_postal,varsta)
+ VALUES(60206026738,'Alina Matache',TO_DATE('02-06-2002','DD-MM-YYYY'),077145,21);
+ INSERT INTO CLIENTI (cnp,nume,data_nastere,cod_postal,varsta)
+ VALUES(5030989632731,'Marius Corea',TO_DATE('03-09-1998','DD-MM-YYYY'),038299,25);
+ INSERT INTO CLIENTI (cnp,nume,data_nastere,cod_postal,varsta)
+ VALUES(5180589402731,'David Lina',TO_DATE('18-05-1989','DD-MM-YYYY'),722561,34);
 
 INSERT INTO FARMACIE (id_farmacie,nume,cost_chirie,cod_postal)
-VALUES(0432,'Catena',300,673899);
-INSERT INTO FARMACIE (id_farmacie,nume,cost_chirie,cod_postal)
-VALUES(0433,'Ropharm',460,627388);
-INSERT INTO FARMACIE (id_farmacie,nume,cost_chirie,cod_postal)
-VALUES(0434,'Farmacia Tei',500,567393);
-INSERT INTO FARMACIE (id_farmacie,nume,cost_chirie,cod_postal)
-VALUES(0435,'DoctorMax',340,827111);
+ VALUES(0432,'Catena',300,673899);
+ INSERT INTO FARMACIE (id_farmacie,nume,cost_chirie,cod_postal)
+ VALUES(0433,'Ropharm',460,627388);
+ INSERT INTO FARMACIE (id_farmacie,nume,cost_chirie,cod_postal)
+ VALUES(0434,'Farmacia Tei',500,567393);
+ INSERT INTO FARMACIE (id_farmacie,nume,cost_chirie,cod_postal)
+ VALUES(0435,'DoctorMax',340,827111);
 
-SELECT * FROM farmacie;
 
-ALTER TABLE FARMACIE
-MODIFY cost_chirie NUMBER(10,2);
+ INSERT INTO ANGAJAT(id_angajat,id_farmacie,nume, data_angajare, salariu, tip_angajat)
+ VALUES(01,0432,'Marian Popescu',TO_DATE('05-09-2021','DD-MM-YYYY'),5000,'farmacist');
+ INSERT INTO ANGAJAT(id_angajat,id_farmacie,nume, data_angajare, salariu, tip_angajat)
+ VALUES(02,0432,'Adriana Condurache ',TO_DATE('06-12-2022','DD-MM-YYYY'),8000,'chimist');
+ INSERT INTO ANGAJAT(id_angajat,id_farmacie,nume, data_angajare, salariu, tip_angajat)
+ VALUES(03,0434,'Mariana Varnicu',TO_DATE('13-06-2018','DD-MM-YYYY'),3000,'asistent farmacist');
+ INSERT INTO ANGAJAT(id_angajat,id_farmacie,nume, data_angajare, salariu, tip_angajat)
+ VALUES(04,0435,'Corina Miloiu',TO_DATE('04-08-2020','DD-MM-YYYY'),6500,'farmacist');
+
+ INSERT INTO COMPANIE_FARMACEUTICA(id_companie,nume,telefon)
+ VALUES(3442,'Mediplus',0744873652);
+ INSERT INTO COMPANIE_FARMACEUTICA(id_companie,nume,telefon)
+ VALUES(5432,'Farmexim',0756327192);
+ INSERT INTO COMPANIE_FARMACEUTICA(id_companie,nume,telefon)
+ VALUES(1244,'Novartis',0733281932);
+ INSERT INTO COMPANIE_FARMACEUTICA(id_companie,nume,telefon)
+ VALUES(4938,'Roche',0746227382);
+
+
+INSERT INTO MEDICAMENT( id_produs,id_companie,nume,pret,reteta)
+VALUES(893332,3442,'Parasinus',20,'NU');
+INSERT INTO MEDICAMENT( id_produs,id_companie,nume,pret,reteta)
+VALUES(462771,1244,'Aciclovir',60,'DA');
+INSERT INTO MEDICAMENT( id_produs,id_companie,nume,pret,reteta)
+VALUES(462773,5432,'Calmaben',30,'DA');
+INSERT INTO MEDICAMENT( id_produs,id_companie,nume,pret,reteta)
+VALUES(372881,3442,'Nurofen',35,'NU');
+
+INSERT INTO COMANDA(id_comanda,cnp,data_efectuare)
+VALUES(0001,6030803045351,TO_DATE('09-12-2023','DD-MM-YYYY'));
+INSERT INTO COMANDA(id_comanda,cnp,data_efectuare)
+VALUES(0002,60206026738,TO_DATE('13-12-2023','DD-MM-YYYY'));
+INSERT INTO COMANDA(id_comanda,cnp,data_efectuare)
+VALUES(0003,6030803045351,TO_DATE('03-01-2024','DD-MM-YYYY'));
+INSERT INTO COMANDA(id_comanda,cnp,data_efectuare)
+VALUES(0004,5180589402731,TO_DATE('05-01-2024','DD-MM-YYYY'));
+
+INSERT INTO DETALIU_COMANDA(id_detalii, id_comanda,id_produs,cantitate)
+VALUES(01,0001,893332,2);
+INSERT INTO DETALIU_COMANDA(id_detalii, id_comanda,id_produs,cantitate)
+VALUES(02,0001,462771,1);
+INSERT INTO DETALIU_COMANDA(id_detalii, id_comanda,id_produs,cantitate)
+VALUES(03,0002,372881,5);
+INSERT INTO DETALIU_COMANDA(id_detalii, id_comanda,id_produs,cantitate)
+VALUES(04,0003,372881,2);
+INSERT INTO DETALIU_COMANDA( id_detalii,id_comanda,id_produs,cantitate)
+VALUES(05,0004,893332,3);
+INSERT INTO DETALIU_COMANDA(id_detalii, id_comanda,id_produs,cantitate)
+VALUES(06,0004,462773,6);
+
+
+INSERT INTO STOC_MEDICAMENT(stoc,id_farmacie,id_produs,cantitate)
+VALUES(01,0432,893332,30);
+INSERT INTO STOC_MEDICAMENT(stoc,id_farmacie,id_produs,cantitate)
+VALUES(02,0433,893332,12);
+INSERT INTO STOC_MEDICAMENT(stoc,id_farmacie,id_produs,cantitate)
+VALUES(03,0435,372881,0);
+INSERT INTO STOC_MEDICAMENT(stoc,id_farmacie,id_produs,cantitate)
+VALUES(04,0434,462773,0);
